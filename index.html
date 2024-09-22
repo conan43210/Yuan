@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>三维地球地图查询</title>
+    <script src="https://cesium.com/downloads/cesiumjs/releases/1.104/Build/Cesium/Cesium.js"></script>
+    <link href="https://cesium.com/downloads/cesiumjs/releases/1.104/Build/Cesium/Widgets/widgets.css" rel="stylesheet">
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        #cesiumContainer {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div id="cesiumContainer"></div>
+    <script>
+        // 设置访问令牌
+        Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIyMDJmMWZkZS1iZjMwLTRlZDktOGQ3Yi01ZDU1NWE0OTVjZDYiLCJpZCI6MjQzMjAwLCJpYXQiOjE3MjY5ODQ3NTV9.dUUfgymTwdjISuCaxdUthxq8sQ26SNre_ZWt0Zgh86M';
+
+        // 初始化Cesium查看器
+        const viewer = new Cesium.Viewer('cesiumContainer', {
+            terrainProvider: Cesium.createWorldTerrain()
+        });
+
+        // 移除默认的底部信息栏
+        viewer.cesiumWidget.creditContainer.style.display = "noe";
+
+        // 设置初始视图
+        viewer.camera.setView({
+            destination: Cesium.Cartesian3.fromDegrees(116.4074, 39.9042, 10000000)
+        });
+
+        // 添加错误处理
+        viewer.scene.renderError.addEventListener(function(error) {
+            console.error('Cesium渲染错误:', error);
+        });
+    </script>
+</body>
+</html>
